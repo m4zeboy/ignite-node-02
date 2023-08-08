@@ -1,13 +1,14 @@
-import fastify from 'fastify'
-import { knex } from './database'
+import fastify from "fastify";
+import { knex } from "./database";
+import crypto from "node:crypto";
 
-const server = fastify()
+const server = fastify();
 
-server.get('/hello', async () => {
-  const tables = await knex('sqlite_schema').select('*')
-  return tables
-})
+server.get("/hello", async () => {
+  const transactions = knex("transactions").where("amount", 500).select("*");
+  return transactions;
+});
 
 server.listen({ port: 3333 }).then(() => {
-  console.log('server running')
-})
+  console.log("server running");
+});
