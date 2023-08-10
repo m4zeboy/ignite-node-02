@@ -4,7 +4,9 @@ import { transactionRoutes } from "./routes/transactions";
 
 const server = fastify();
 
-server.register(transactionRoutes);
+server.register(transactionRoutes, {
+  prefix: "transactions",
+});
 
 server.listen({ port: env.PORT }).then(() => {
   console.log("server running");
