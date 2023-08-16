@@ -8,13 +8,13 @@ import { checkSessionIdExists } from "../middlewares/check-session-id-exists";
 
 // Cookies são formas de manter contexto entre as requisições
 
-export async function transactionRoutes(server: FastifyInstance) {
-  server.get(
+export async function transactionRoutes(app: FastifyInstance) {
+  app.get(
     "/",
     {
       preHandler: [checkSessionIdExists],
     },
-    async (request, reply) => {
+    async (request) => {
       const { sessionId } = request.cookies;
 
       const transactions = await knex("transactions")
@@ -26,7 +26,7 @@ export async function transactionRoutes(server: FastifyInstance) {
     },
   );
 
-  server.get(
+  app.get(
     "/:id",
     {
       preHandler: [checkSessionIdExists],
@@ -51,7 +51,7 @@ export async function transactionRoutes(server: FastifyInstance) {
     },
   );
 
-  server.get(
+  app.get(
     "/summary",
     {
       preHandler: [checkSessionIdExists],
@@ -66,7 +66,7 @@ export async function transactionRoutes(server: FastifyInstance) {
     },
   );
 
-  server.post("/", async (request, reply) => {
+  app.post("/", async (request, reply) => {
     const createTransactionBodySchema = z.object({
       title: z.string(),
       amount: z.number(),
