@@ -1,8 +1,8 @@
-import fastify from "fastify";
-import cookie from "@fastify/cookie";
-import { transactionRoutes } from "./routes/transactions";
+import fastify from 'fastify'
+import cookie from '@fastify/cookie'
+import { transactionRoutes } from './routes/transactions'
 
-export const app = fastify();
+export const app = fastify()
 
 /* 
   Testes unitários: Testar uma unidade isolada da aplicação
@@ -12,8 +12,8 @@ export const app = fastify();
   Pirâmide de teste
 */
 
-app.register(cookie);
+app.register(cookie)
 
 app.register(transactionRoutes, {
-  prefix: "transactions",
-});
+  prefix: 'transactions',
+})
